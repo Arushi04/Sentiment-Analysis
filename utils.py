@@ -6,6 +6,23 @@ from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 from nltk.tokenize import TweetTokenizer
 
+def lookup(freqs, word, label):
+    '''
+    Input:
+        freqs: a dictionary with the frequency of each pair (or tuple)
+        word: the word to look up
+        label: the label corresponding to the word
+    Output:
+        n: the number of times the word with its corresponding label appears.
+    '''
+    n = 0  # freqs.get((word, label), 0)
+
+    pair = (word, label)
+    if (pair in freqs):
+        n = freqs[pair]
+
+    return n
+
 
 def process_tweet(tweet):
     """Process tweet function.
@@ -64,6 +81,8 @@ def build_freqs(tweets, ys):
 
     return freqs
 
+
+
 def test_lookup(func):
     freqs = {('sad', 0): 4,
              ('happy', 1): 12,
@@ -75,19 +94,5 @@ def test_lookup(func):
     return 'Failed Sanity Check!'
 
 
-def lookup(freqs, word, label):
-    '''
-    Input:
-        freqs: a dictionary with the frequency of each pair (or tuple)
-        word: the word to look up
-        label: the label corresponding to the word
-    Output:
-        n: the number of times the word with its corresponding label appears.
-    '''
-    n = 0  # freqs.get((word, label), 0)
 
-    pair = (word, label)
-    if (pair in freqs):
-        n = freqs[pair]
 
-    return n
